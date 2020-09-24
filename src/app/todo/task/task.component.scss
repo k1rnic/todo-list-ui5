@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  .todo-task-toolbar {
+    &>* {
+      margin-right: .5rem;
+    }
+  }
+}

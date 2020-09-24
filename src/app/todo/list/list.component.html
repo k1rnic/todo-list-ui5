@@ -1,0 +1,17 @@
+<ui5-panel [attr.header-text]="title | uppercase" [collapsed]="!tasks?.length">
+  <ui5-list mode="MultiSelect" (selection-change)="onSelectTask($event)">
+    <ui5-li-custom
+      *ngFor="let task of tasks"
+      [key]="task.id"
+      [selected]="task.done"
+    >
+      <todo-task
+        [id]="task.id"
+        [title]="task.title"
+        [deadline]="task.deadline"
+        (taskRemoveClick$)="onRemoveTaskClick($event)"
+      >
+      </todo-task>
+    </ui5-li-custom>
+  </ui5-list>
+</ui5-panel>

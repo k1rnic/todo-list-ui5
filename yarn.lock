@@ -1264,6 +1264,16 @@
     regenerator-runtime "0.12.1"
     url-search-params-polyfill "^5.0.0"
 
+"@ui5/webcomponents-fiori@^1.0.0-rc.8":
+  version "1.0.0-rc.8"
+  resolved "https://registry.yarnpkg.com/@ui5/webcomponents-fiori/-/webcomponents-fiori-1.0.0-rc.8.tgz#8c8cba2bf2c94b34b1af8d740011747403a904b4"
+  integrity sha512-XPOhZ0J2sgd4mfqV+YFtIohA9dE6BKFy8k3IWs26WaQFdwqPuNgimmRirOD31s/gZdYR/igS+nMsktYE+W5KUw==
+  dependencies:
+    "@ui5/webcomponents" "1.0.0-rc.8"
+    "@ui5/webcomponents-base" "0.22.0"
+    "@ui5/webcomponents-icons" "1.0.0-rc.8"
+    "@ui5/webcomponents-theme-base" "1.0.0-rc.8"
+
 "@ui5/webcomponents-icons@1.0.0-rc.8":
   version "1.0.0-rc.8"
   resolved "https://registry.yarnpkg.com/@ui5/webcomponents-icons/-/webcomponents-icons-1.0.0-rc.8.tgz#a06124d9e4b45345eb9b7f17f18d48e0d33d57e2"
@@ -1286,7 +1296,7 @@
     "@sap-theming/theming-base-content" "11.1.19"
     "@ui5/webcomponents-base" "0.22.0"
 
-"@ui5/webcomponents@^1.0.0-rc.8":
+"@ui5/webcomponents@1.0.0-rc.8", "@ui5/webcomponents@^1.0.0-rc.8":
   version "1.0.0-rc.8"
   resolved "https://registry.yarnpkg.com/@ui5/webcomponents/-/webcomponents-1.0.0-rc.8.tgz#dd7929ce91882abb68ee52531ad3e160fe7a3e79"
   integrity sha512-5OhkEHXBVk7dZyFizmELoPb1nRxtOmN8utBM6FcEOqlkvLHOZEycVgl64OzZdUjYyucUtCAq2kRBbRxadqKyTA==

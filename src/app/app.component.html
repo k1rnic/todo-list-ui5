@@ -1,0 +1,13 @@
+<todo-header></todo-header>
+<todo-list
+  title="In progress"
+  [tasks]="inProgressTasks"
+  (selectionChange$)="onTaskComplete($event)"
+  (taskRemoveClick$)="onRemoveTask($event)"
+></todo-list>
+<todo-list
+  title="Completed"
+  [tasks]="completedTasks"
+  (selectionChange$)="onTaskInProgress($event)"
+  (taskRemoveClick$)="onRemoveTask($event)"
+></todo-list>
