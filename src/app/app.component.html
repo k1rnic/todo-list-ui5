@@ -7,6 +7,7 @@
   [tasks]="inProgressTasks"
   (selectionChange$)="onTaskComplete($event)"
   (taskRemoveClick$)="onRemoveTask($event)"
+  (taskEditClick$)="onEditingTask($event)"
 ></todo-list>
 
 <todo-list
@@ -14,4 +15,12 @@
   [tasks]="completedTasks"
   (selectionChange$)="onTaskInProgress($event)"
   (taskRemoveClick$)="onRemoveTask($event)"
+  (taskEditClick$)="onEditingTask($event)"
 ></todo-list>
+
+<todo-editor
+  *ngIf="editingTask"
+  [task]="editingTask"
+  (submit$)="onEditingTaskSubmit($event)"
+  (cancel$)="onEditingTaskCancel($event)"
+></todo-editor>

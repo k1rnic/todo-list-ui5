@@ -8,8 +8,11 @@ import { TodoTask } from './todo/task/task.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  allTasks: TodoTask[];
   completedTasks: TodoTask[];
   inProgressTasks: TodoTask[];
+
+  editingTask: TodoTask = null;
 
   constructor(private todoService: TodoService) {}
 
@@ -26,7 +29,9 @@ export class AppComponent implements OnInit {
 
   onTaskInProgress({ selectedItems, previouslySelectedItems }): void {
     previouslySelectedItems.forEach((task) => {
-      const unselected = !selectedItems.some(selected => selected.key === task.key);
+      const unselected = !selectedItems.some(
+        (selected) => selected.key === task.key
+      );
 
       if (unselected) {
         this.todoService.changeTaskStatus(task.key, false);
@@ -45,7 +50,26 @@ export class AppComponent implements OnInit {
     this.getTasks();
   }
 
+  onEditingTask(id: number): void {
+    this.editingTask = this.allTasks.find((task) => task.id === id);
+  }
+
+  onEditingTaskSubmit(updates: TodoTask): void {
+    this.todoService.editTask(updates.id, updates);
+    this.clearEditingTask();
+    this.getTasks();
+  }
+
+  onEditingTaskCancel(): void {
+    this.clearEditingTask();
+  }
+
+  private clearEditingTask(): void {
+    this.editingTask = null;
+  }
+
   private getTasks(): void {
+    this.allTasks = this.todoService.getAllTasks();
     this.inProgressTasks = this.todoService.getTasksInProgress();
     this.completedTasks = this.todoService.getTasksCompleted();
   }

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import '@ui5/webcomponents-icons/dist/Assets';
 import '@ui5/webcomponents/dist/Button';
 import '@ui5/webcomponents-fiori/dist/ShellBar';
 import '@ui5/webcomponents-fiori/dist/FlexibleColumnLayout';

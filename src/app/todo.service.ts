@@ -40,6 +40,10 @@ let tasks: TodoTask[] = [
 export class TodoService {
   constructor() {}
 
+  getAllTasks(): TodoTask[] {
+    return tasks;
+  }
+
   getTasksInProgress(): TodoTask[] {
     return tasks
       .filter((task) => !task.done)
@@ -53,11 +57,23 @@ export class TodoService {
   }
 
   addTask(task: Partial<TodoTask>): void {
-    tasks.push({ ...task, id: tasks[tasks.length - 1].id + 1, done: false } as TodoTask);
+    tasks.push({
+      ...task,
+      id: tasks[tasks.length - 1]?.id + 1 || 0,
+      done: false,
+    } as TodoTask);
   }
 
-  editTask(): TodoTask {
-    return null;
+  editTask(id: number, updates: Partial<TodoTask>): TodoTask {
+    const target = tasks.find(task => task.id === id);
+
+    if (target) {
+      Object.keys(updates).forEach(prop => {
+        target[prop] = updates[prop];
+      });
+    }
+
+    return target;
   }
 
   removeTask(id: number): void {

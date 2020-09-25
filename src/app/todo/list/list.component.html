@@ -9,6 +9,7 @@
         [id]="task.id"
         [title]="task.title"
         [deadline]="task.deadline"
+        (taskEditClick$)="onEditTaskClick($event)"
         (taskRemoveClick$)="onRemoveTaskClick($event)"
       >
       </todo-task>

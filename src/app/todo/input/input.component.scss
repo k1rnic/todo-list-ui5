@@ -1,26 +1,30 @@
 :host {
-  display: flex;
-  padding: 1.25rem;
-  justify-content: space-between;
-
-  & > * {
-    height: 100%;
-  }
-
-  .toolbar-input-container {
-    flex: 1;
+  .input-toolbar {
     display: flex;
+    padding: .5rem 1.25rem;
+  }
 
-    ui5-input {
-      flex: 3;
-    }
-
-    ui5-datepicker {
-      flex: 1;
+  @media(min-width: 600px) {
+    .input-toolbar {
+      justify-content: stretch;
+      & > *:not(:last-child) {
+        margin-right: .5rem;
+      }
+      ui5-input {
+        flex: 1;
+      }
     }
   }
 
-  .toolbar-input-container > * {
-    margin-right: .5rem;
+  @media(max-width: 600px) {
+    .input-toolbar {
+      flex-direction: column;
+      & > * {
+        width: auto;
+      }
+      & > *:not(:last-child) {
+        margin-bottom: .5rem;
+      }
+    }
   }
 }

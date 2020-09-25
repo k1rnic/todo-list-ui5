@@ -1,1 +1,28 @@
-<p>editor works!</p>
+<ui5-dialog #dialog header-text="Edit Todo item">
+  <div class="dialog-content">
+    <div class="edit-container">
+      <ui5-label>Title:</ui5-label>
+      <ui5-textarea
+        #titleInput
+        class="title-textarea"
+        maxlength="24"
+        show-exceeded-text
+        [value]="task?.title"
+      ></ui5-textarea>
+    </div>
+
+    <div class="edit-container date-edit-fields">
+      <ui5-label>Date:</ui5-label>
+      <ui5-datepicker
+        #deadlineInput
+        format-pattern="yyyy/MM/dd"
+        [value]="task?.deadline | date: 'yyyy/MM/dd'"
+      ></ui5-datepicker>
+    </div>
+  </div>
+
+  <div class="dialog-footer">
+    <ui5-button design="Transparent" (click)="onCancel($event)">Cancel</ui5-button>
+    <ui5-button design="Emphasized" (click)="onSubmit($event)">Save</ui5-button>
+  </div>
+</ui5-dialog>

@@ -7,8 +7,8 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, ElementRef, V
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent implements OnInit {
-  @ViewChild('textInput') text: ElementRef;
-  @ViewChild('dateInput') date: ElementRef;
+  @ViewChild('titleInput') titleInput: ElementRef;
+  @ViewChild('deadlineInput') deadlineInput: ElementRef;
 
   @Output() inputSubmitting = new EventEmitter<{ title: string, deadline: Date }>();
 
@@ -18,8 +18,8 @@ export class InputComponent implements OnInit {
 
   addTodo(e: any): void {
     this.inputSubmitting.emit({
-      title: this.text.nativeElement.value,
-      deadline: new Date(this.date.nativeElement.value),
+      title: this.titleInput.nativeElement.value,
+      deadline: new Date(this.deadlineInput.nativeElement.value),
     });
   }
 }

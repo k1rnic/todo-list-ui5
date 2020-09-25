@@ -1,8 +1,7 @@
-<div class="toolbar-input-container">
-  <ui5-input #textInput placeholder="My Todo ..."></ui5-input>
-  <ui5-datepicker #dateInput format-pattern="yyyy/MM/dd"></ui5-datepicker>
+<div class="input-toolbar">
+  <ui5-input #titleInput placeholder="My Todo ..."></ui5-input>
+  <ui5-datepicker #deadlineInput format-pattern="yyyy/MM/dd"></ui5-datepicker>
+  <ui5-button icon="add" design="Emphasized" (click)="addTodo($event)">Add Todo</ui5-button>
 </div>
 
-<div class="toolbar-action-container">
-  <ui5-button (click)="addTodo($event)" design="Emphasized">Add Todo</ui5-button>
-</div>
+

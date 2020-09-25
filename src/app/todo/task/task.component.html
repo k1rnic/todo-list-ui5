@@ -1,13 +1,15 @@
-<div class="todo-task-content">
-  <div class="todo-task-title">
-    {{ title }}
+<div class="todo-task-container">
+  <div class="todo-task-content">
+    <div class="todo-task-title">
+      {{ title }}
+    </div>
+    <div class="todo-task-description">
+      {{ deadline | date }}
+    </div>
   </div>
-  <div class="todo-task-description">
-    {{ deadline | date }}
-  </div>
-</div>
 
-<div class="todo-task-toolbar">
-  <ui5-button (click)="onEditTaskClick($event)">Edit</ui5-button>
-  <ui5-button design="Negative" (click)="onRemoveTaskClick($event)">Remove</ui5-button>
+  <div class="todo-task-toolbar">
+    <ui5-button icon="edit" (click)="onEditTaskClick($event)">Edit</ui5-button>
+    <ui5-button icon="delete" design="Negative" (click)="onRemoveTaskClick($event)">Remove</ui5-button>
+  </div>
 </div>
