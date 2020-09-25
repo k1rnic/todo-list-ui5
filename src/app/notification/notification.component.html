@@ -1,0 +1,7 @@
+<ui5-messagestrip
+  *ngFor="let notification of notifications$ | async"
+  [type]="notification.level"
+  (close)="onClose($event)"
+>
+  {{ notification.text }}
+</ui5-messagestrip>

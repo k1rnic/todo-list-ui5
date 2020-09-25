@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { TodoTask } from './todo/task/task.component';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+import { TodoTask } from '../todo/task/task.component';
+import { NotificationLevel, NotifyService } from './notify.service';
 
 let data: TodoTask[] = [
   {
@@ -42,10 +43,10 @@ let data: TodoTask[] = [
 export class TodoService {
   private tasks$: BehaviorSubject<TodoTask[]> = new BehaviorSubject(data);
 
-  constructor() {}
+  constructor(private notifyService: NotifyService) {}
 
   getAllTasks(): Observable<TodoTask[]> {
-    return this.tasks$;
+    return this.tasks$.asObservable();
   }
 
   getTaskById(id: number): Observable<TodoTask> {
@@ -83,6 +84,11 @@ export class TodoService {
     );
 
     this.tasks$.next(data);
+
+    this.notifyService.notify({
+      text: `New task '${task.title}' created`,
+      level: NotificationLevel.Info,
+    });
   }
 
   editTask(id: number, updates: Partial<TodoTask>): void {
@@ -100,6 +106,11 @@ export class TodoService {
   removeTask(id: number): void {
     data = data.filter((task) => task.id !== id);
     this.tasks$.next(data);
+
+    this.notifyService.notify({
+      text: `Task with id: ${id} removed`,
+      level: NotificationLevel.Error
+    });
   }
 
   changeTaskStatus(id: number, done: boolean): void {
@@ -107,5 +118,12 @@ export class TodoService {
     target.done = done;
 
     this.tasks$.next(data);
+
+    if (done) {
+      this.notifyService.notify({
+        text: `Task '${target.title}' was completed`,
+        level: NotificationLevel.Success,
+      });
+    }
   }
 }
