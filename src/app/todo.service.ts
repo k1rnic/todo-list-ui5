@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { TodoTask } from './todo/task/task.component';
 
-let tasks: TodoTask[] = [
+let data: TodoTask[] = [
   {
     id: 1,
     title: 'Get some carrots',
@@ -38,50 +40,72 @@ let tasks: TodoTask[] = [
   providedIn: 'root',
 })
 export class TodoService {
+  private tasks$: BehaviorSubject<TodoTask[]> = new BehaviorSubject(data);
+
   constructor() {}
 
-  getAllTasks(): TodoTask[] {
-    return tasks;
+  getAllTasks(): Observable<TodoTask[]> {
+    return this.tasks$;
   }
 
-  getTasksInProgress(): TodoTask[] {
-    return tasks
-      .filter((task) => !task.done)
-      .sort((a, b) => a.deadline?.getTime() - b.deadline?.getTime());
+  getTaskById(id: number): Observable<TodoTask> {
+    return this.tasks$.pipe(
+      map(tasks => tasks.find(task => task.id === id))
+    );
   }
 
-  getTasksCompleted(): TodoTask[] {
-    return tasks
-      .filter((task) => task.done)
-      .sort((a, b) => a.deadline?.getTime() - b.deadline?.getTime());
+  getTasksInProgress(): Observable<TodoTask[]> {
+    return this.tasks$.pipe(
+      map((tasks) =>
+        tasks
+          .filter((task) => !task.done)
+          .sort((a, b) => a.deadline?.getTime() - b.deadline?.getTime())
+      )
+    );
+  }
+
+  getTasksCompleted(): Observable<TodoTask[]> {
+    return this.tasks$.pipe(
+      map((tasks) =>
+        tasks
+          .filter((task) => task.done)
+          .sort((a, b) => a.deadline?.getTime() - b.deadline?.getTime())
+      )
+    );
   }
 
   addTask(task: Partial<TodoTask>): void {
-    tasks.push({
+    data.push({
       ...task,
-      id: tasks[tasks.length - 1]?.id + 1 || 0,
-      done: false,
-    } as TodoTask);
+        id: data[data.length - 1]?.id + 1 || 0,
+        done: false,
+      } as TodoTask
+    );
+
+    this.tasks$.next(data);
   }
 
-  editTask(id: number, updates: Partial<TodoTask>): TodoTask {
-    const target = tasks.find(task => task.id === id);
+  editTask(id: number, updates: Partial<TodoTask>): void {
+    const target = data.find((task) => task.id === id);
 
     if (target) {
-      Object.keys(updates).forEach(prop => {
+      Object.keys(updates).forEach((prop) => {
         target[prop] = updates[prop];
       });
     }
 
-    return target;
+    this.tasks$.next(data);
   }
 
   removeTask(id: number): void {
-    tasks = tasks.filter((task) => task.id !== id);
+    data = data.filter((task) => task.id !== id);
+    this.tasks$.next(data);
   }
 
   changeTaskStatus(id: number, done: boolean): void {
-    const target = tasks.find((task) => task.id === id);
+    const target = data.find((task) => task.id === id);
     target.done = done;
+
+    this.tasks$.next(data);
   }
 }
