@@ -1,10 +1,14 @@
 <todo-header></todo-header>
+
+<todo-input (inputSubmitting)="onAddTodo($event)"></todo-input>
+
 <todo-list
   title="In progress"
   [tasks]="inProgressTasks"
   (selectionChange$)="onTaskComplete($event)"
   (taskRemoveClick$)="onRemoveTask($event)"
 ></todo-list>
+
 <todo-list
   title="Completed"
   [tasks]="completedTasks"

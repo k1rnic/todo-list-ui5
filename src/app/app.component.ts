@@ -40,6 +40,11 @@ export class AppComponent implements OnInit {
     this.getTasks();
   }
 
+  onAddTodo({ title, deadline }: Partial<TodoTask>): void {
+    this.todoService.addTask({ title, deadline });
+    this.getTasks();
+  }
+
   private getTasks(): void {
     this.inProgressTasks = this.todoService.getTasksInProgress();
     this.completedTasks = this.todoService.getTasksCompleted();

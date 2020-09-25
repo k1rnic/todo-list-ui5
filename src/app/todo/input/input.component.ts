@@ -1,16 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, ElementRef, ViewChild, Output } from '@angular/core';
 
 @Component({
   selector: 'todo-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent implements OnInit {
+  @ViewChild('textInput') text: ElementRef;
+  @ViewChild('dateInput') date: ElementRef;
 
-  constructor() { }
+  @Output() inputSubmitting = new EventEmitter<{ title: string, deadline: Date }>();
 
-  ngOnInit(): void {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  addTodo(e: any): void {
+    this.inputSubmitting.emit({
+      title: this.text.nativeElement.value,
+      deadline: new Date(this.date.nativeElement.value),
+    });
   }
-
 }

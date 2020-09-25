@@ -41,15 +41,19 @@ export class TodoService {
   constructor() {}
 
   getTasksInProgress(): TodoTask[] {
-    return tasks.filter((task) => !task.done);
+    return tasks
+      .filter((task) => !task.done)
+      .sort((a, b) => a.deadline?.getTime() - b.deadline?.getTime());
   }
 
   getTasksCompleted(): TodoTask[] {
-    return tasks.filter((task) => task.done);
+    return tasks
+      .filter((task) => task.done)
+      .sort((a, b) => a.deadline?.getTime() - b.deadline?.getTime());
   }
 
-  addTask(task: Partial<TodoTask>): TodoTask {
-    return null;
+  addTask(task: Partial<TodoTask>): void {
+    tasks.push({ ...task, id: tasks[tasks.length - 1].id + 1, done: false } as TodoTask);
   }
 
   editTask(): TodoTask {

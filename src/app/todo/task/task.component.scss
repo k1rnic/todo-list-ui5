@@ -2,6 +2,17 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
+
+  .todo-task-content {
+    &>* {
+      margin: .5rem 0;
+    }
+
+    .todo-task-description {
+      color: lightslategray;
+    }
+  }
 
   .todo-task-toolbar {
     &>* {

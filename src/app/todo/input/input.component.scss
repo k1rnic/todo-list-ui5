@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  padding: 1.25rem;
+  justify-content: space-between;
+
+  & > * {
+    height: 100%;
+  }
+
+  .toolbar-input-container {
+    flex: 1;
+    display: flex;
+
+    ui5-input {
+      flex: 3;
+    }
+
+    ui5-datepicker {
+      flex: 1;
+    }
+  }
+
+  .toolbar-input-container > * {
+    margin-right: .5rem;
+  }
+}
