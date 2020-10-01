@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoService } from './todo.service';
+import { Observable } from 'rxjs';
+import { TodoService } from './services/todo.service';
 import { TodoTask } from './todo/task/task.component';
 
 @Component({
@@ -8,11 +9,11 @@ import { TodoTask } from './todo/task/task.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  allTasks: TodoTask[];
-  completedTasks: TodoTask[];
-  inProgressTasks: TodoTask[];
+  allTasks$: Observable<TodoTask[]>;
+  completedTasks$: Observable<TodoTask[]>;
+  inProgressTasks$: Observable<TodoTask[]>;
 
-  editingTask: TodoTask = null;
+  editingTask$: Observable<TodoTask> = null;
 
   constructor(private todoService: TodoService) {}
 
@@ -24,7 +25,6 @@ export class AppComponent implements OnInit {
     selectedItems.forEach((task) => {
       this.todoService.changeTaskStatus(task.key, true);
     });
-    this.getTasks();
   }
 
   onTaskInProgress({ selectedItems, previouslySelectedItems }): void {
@@ -37,27 +37,23 @@ export class AppComponent implements OnInit {
         this.todoService.changeTaskStatus(task.key, false);
       }
     });
-    this.getTasks();
   }
 
   onRemoveTask(id: number): void {
     this.todoService.removeTask(id);
-    this.getTasks();
   }
 
   onAddTodo({ title, deadline }: Partial<TodoTask>): void {
     this.todoService.addTask({ title, deadline });
-    this.getTasks();
   }
 
   onEditingTask(id: number): void {
-    this.editingTask = this.allTasks.find((task) => task.id === id);
+    this.editingTask$ = this.todoService.getTaskById(id);
   }
 
   onEditingTaskSubmit(updates: TodoTask): void {
     this.todoService.editTask(updates.id, updates);
     this.clearEditingTask();
-    this.getTasks();
   }
 
   onEditingTaskCancel(): void {
@@ -65,12 +61,12 @@ export class AppComponent implements OnInit {
   }
 
   private clearEditingTask(): void {
-    this.editingTask = null;
+    this.editingTask$ = null;
   }
 
   private getTasks(): void {
-    this.allTasks = this.todoService.getAllTasks();
-    this.inProgressTasks = this.todoService.getTasksInProgress();
-    this.completedTasks = this.todoService.getTasksCompleted();
+    this.allTasks$ = this.todoService.getAllTasks();
+    this.inProgressTasks$ = this.todoService.getTasksInProgress();
+    this.completedTasks$ = this.todoService.getTasksCompleted();
   }
 }

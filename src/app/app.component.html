@@ -4,7 +4,7 @@
 
 <todo-list
   title="In progress"
-  [tasks]="inProgressTasks"
+  [tasks]="inProgressTasks$ | async"
   (selectionChange$)="onTaskComplete($event)"
   (taskRemoveClick$)="onRemoveTask($event)"
   (taskEditClick$)="onEditingTask($event)"
@@ -12,15 +12,17 @@
 
 <todo-list
   title="Completed"
-  [tasks]="completedTasks"
+  [tasks]="completedTasks$ | async"
   (selectionChange$)="onTaskInProgress($event)"
   (taskRemoveClick$)="onRemoveTask($event)"
   (taskEditClick$)="onEditingTask($event)"
 ></todo-list>
 
 <todo-editor
-  *ngIf="editingTask"
-  [task]="editingTask"
+  *ngIf="editingTask$ | async"
+  [task]="editingTask$ | async"
   (submit$)="onEditingTaskSubmit($event)"
   (cancel$)="onEditingTaskCancel($event)"
 ></todo-editor>
+
+<todo-notification></todo-notification>

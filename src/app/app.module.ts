@@ -14,6 +14,7 @@ import '@ui5/webcomponents/dist/Panel';
 import '@ui5/webcomponents/dist/Dialog';
 import '@ui5/webcomponents/dist/Label';
 import '@ui5/webcomponents/dist/TextArea';
+import '@ui5/webcomponents/dist/MessageStrip';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './todo/list/list.component';
@@ -21,6 +22,7 @@ import { TaskComponent } from './todo/task/task.component';
 import { InputComponent } from './todo/input/input.component';
 import { EditorComponent } from './todo/editor/editor.component';
 import { HeaderComponent } from './header/header.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { HeaderComponent } from './header/header.component';
     InputComponent,
     EditorComponent,
     HeaderComponent,
+    NotificationComponent,
   ],
   imports: [BrowserModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
